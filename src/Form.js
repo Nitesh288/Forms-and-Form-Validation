@@ -59,15 +59,21 @@ const Form = () => {
     if (!formData.phone) {
       errors.phone = 'Phone number is required';
     }
-    if (!formData.country) {
-      errors.country = 'Country is required';
+    if (!formData.countryCode) {
+      errors.countryCode = 'countryCode is required';
+    }
+      if (!formData.country) {
+        errors.country = 'Country is required';
     }
     if (!formData.city) {
       errors.city = 'City is required';
     }
     if (!formData.panNo) {
       errors.panNo = 'PAN number is required';
-    }
+  } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo)) {
+      errors.panNo = 'Invalid PAN number format. Please enter a PAN number in the format: ABCDE1234F';
+  }
+  
     if (!formData.aadharNo || !aadharRegex.test(formData.aadharNo)) {
       errors.aadharNo = 'Aadhar number should be 12 digits';
     }
@@ -178,10 +184,10 @@ const Form = () => {
         {errors.city && <div className="error">{errors.city}</div>}
         <br />
 
-        <label>PAN Number:</label>
-        <input type="text" name="panNo" onChange={handleChange} />
-        {errors.panNo && <div className="error">{errors.panNo}</div>}
-        <br />
+        <label>PAN Number (Format: ABCDE1234F):</label>
+<input type="text" name="panNo" onChange={handleChange} />
+{errors.panNo && <div className="error">{errors.panNo}</div>}
+<br />
 
         <label>Aadhar Number:</label>
         <input type="text" name="aadharNo" onChange={handleChange} />
